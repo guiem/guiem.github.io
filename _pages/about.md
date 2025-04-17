@@ -6,32 +6,12 @@ redirect_from:
   - /about/
   - /about.html
 ---
+I’m a computer scientist and psychologist working in artificial intelligence. Over the years, I’ve built machine learning systems at scale, led data teams, and explored how technology can be aligned with human values.
 
-🌱 Born into a family of farmers, I was making cheese 🧀 by age 6.
+I grew up in a family of farmers, learning to make cheese by age six. I loved the fields, but even then, I was more curious about the human mind. I’d idealized the notion that by building intelligence, I might come to understand it. That curiosity led me to study computer science.
 
-🤯 At 10, I shocked my parents by saying I was fascinated with the human mind, not farming.
+After completing a master’s in AI, I began using technology to support people in need—like developing AI-assisted wheelchairs that shared control between machine and user. That work drew me deeper into psychology, and I eventually trained and graduated as a psychologist.
 
-🖥️ I thought the best way to understand it was to build it, so I studied computer science.
+Since then, I’ve worked across academia and industry—building systems to predict tourist dynamics, designing tools to explore how science, technology, and society shape one another, and improving online giving. Along the way, I’ve grown increasingly focused on how we can ensure AI benefits society as it becomes more powerful.
 
-🎓 Got a master’s in AI and started using tech to help people.
-
-🦽 Worked with hospitalized seniors on AI-powered wheelchairs, sharing control between human and machine.
-
-🧠 That experience pushed me to study psychology. I loved it so much I graduated as a psychologist.
-
-❤️ I fell for social action and exploring how science, tech, and society intersect.
-
-<details>
-  <summary>💸 But bills don’t pay themselves, so I focused on AI in the industry.
-  
-  </summary>
-  
-  I’ve tackled everything from selling tourist data 🏖️ to document AI 📝 to making giving easier at GoFundMe 💝.
-
-</details>
-
-🤖 Since ChatGPT, AI roles I thought were sci-fi are now real.
-
-🎯 My new focus? Researching AI alignment to ensure this tech benefits humanity.
-
-AI/ML expert of 15+ years with a solid background in computer science and psychology, specializing in machine learning at scale and data-driven solutions. Successfully established and led the ML function at GoFundMe and Signaturit. As Chief Data Scientist at Mabrian, used Big Data to build AI algorithms that predicted tourist dynamics. Proficient in developing robust ML infrastructures and passionate about addressing AI risks with an emphasis on societal impacts. Eager to apply deep learning expertise and interdisciplinary knowledge to contribute to AI Safety and Alignment initiatives.
+These days, my work centers on AI safety & alignment: making sure AI systems behave in ways that are safe, honest, and grounded in human values.
