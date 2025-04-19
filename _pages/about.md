@@ -15,3 +15,11 @@ After completing a master’s in AI, I began using technology to support people 
 Since then, I’ve worked across academia and industry—building systems to predict tourist dynamics, designing tools to explore how science, technology, and society shape one another, and improving online giving. Along the way, I’ve grown increasingly focused on how we can ensure AI benefits society as it becomes more powerful.
 
 These days, my work centers on AI safety & alignment: making sure AI systems behave in ways that are safe, honest, and grounded in human values.
+
+---
+
+<div class="about-archive">
+  <small>
+    Sometimes, I write in Catalan or Spanish—fragments of life, quietly kept. Explore my <a href="/year-archive-personal/">personal archive</a>.
+  </small>
+</div>
