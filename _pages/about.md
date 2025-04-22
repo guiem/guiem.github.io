@@ -20,6 +20,7 @@ These days, my work centers on AI safety & alignment: making sure AI systems beh
 
 <div class="about-archive">
   <small>
-    Sometimes, I write in Catalan or Spanish—fragments of life, quietly kept. Explore my <a href="/year-archive-personal/">personal archive</a>.
+    Sometimes, I write in Catalan or Spanish—fragments of life, quietly kept. Explore my <a href="/year-archive-personal/">personal archive</a>.<br>
+    I also care about giving in practical ways—<a href="/altruistic/">more here</a>.
   </small>
 </div>
