@@ -1,5 +1,5 @@
 ---
-permalink: /altruistic
+permalink: /altruistic/
 title: "Altruistic"
 author_profile: true
 ---
