@@ -21,6 +21,7 @@ These days, my work centers on AI safety & alignment: making sure AI systems beh
 <div class="about-archive">
   <small>
     Sometimes, I write in Catalan or Spanish—fragments of life, quietly kept. Explore my <a href="/year-archive-personal/">personal archive</a>.<br>
-    I also care about giving in practical ways—<a href="/altruistic/">more here</a>.
+    I also care about giving in practical ways—<a href="/altruistic/">more here</a>.<br>
+    I also <a href="/sax/">play sax</a> like no one's listening—and they probably shouldn't.
   </small>
 </div>
