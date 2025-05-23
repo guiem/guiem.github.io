@@ -1,5 +1,5 @@
 ---
-permalink: /sax
+permalink: /sax/
 title: ""
 author_profile: true
 ---
