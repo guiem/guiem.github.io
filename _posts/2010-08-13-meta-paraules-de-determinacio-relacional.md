@@ -12,6 +12,13 @@ blogger_permalink:
     - /2010/08/meta-paraules-de-determinacio.html
 categories:
     - personal
+tags:
+    - seduccio
+    - seduction
+    - paraules
+    - words
+    - escolta
+    - listening
 ---
 
 Podria venir a tu.  

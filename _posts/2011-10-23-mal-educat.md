@@ -9,7 +9,12 @@ permalink: /mal-educat/
 categories:
     - personal
 tags:
-    - educació
+    - educacio
+    - education
+    - aprenentatge
+    - learning
+    - pares
+    - parents
 ---
 
 Com molts de vosaltres ja sabreu, ara mateix estic rondant per Oxford.

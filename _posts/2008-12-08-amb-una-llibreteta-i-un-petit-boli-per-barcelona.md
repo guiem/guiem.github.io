@@ -12,6 +12,13 @@ blogger_permalink:
     - /2008/12/amb-una-llibreteta-i-un-petit-boli-per.html
 categories:
     - personal
+tags:
+    - converses
+    - conversations
+    - empatia
+    - empathy
+    - ciutat
+    - city
 ---
 
 Por eso es positivo, porque ella me aprecia…

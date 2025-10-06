@@ -12,6 +12,12 @@ blogger_permalink:
     - /2010/05/quasi-haiku.html
 categories:
     - personal
+tags:
+    - poesia
+    - poetry
+    - crisi
+    - crisis
+    - haiku
 ---
 
 Malparida crisi,  

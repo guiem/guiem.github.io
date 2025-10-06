@@ -12,6 +12,12 @@ blogger_permalink:
     - /2010/01/dema-sera-un-altre-dia-tornare-ser-un.html
 categories:
     - personal
+tags:
+    - escriptura
+    - writing
+    - caligrafia
+    - calligraphy
+    - digital
 ---
 
 Necessito un pinzell per dibuixar paraules.  

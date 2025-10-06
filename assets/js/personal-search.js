@@ -11,6 +11,7 @@
   let indexPromise = null;
   let lastQuery = '';
   const searchSrc = input.getAttribute('data-search-src') || '/search-personal.json';
+  const tagsLabel = input.getAttribute('data-tags-label') || 'Tags:';
 
   const escapeHtml = (value) => {
     return String(value).replace(/[&<>"']/g, (char) => {
@@ -97,6 +98,33 @@
       article.appendChild(excerpt);
     }
 
+    if (Array.isArray(post.tags) && post.tags.length) {
+      const tagsPara = document.createElement('p');
+      tagsPara.className = 'archive__item-tags';
+
+      const label = document.createElement('strong');
+      label.innerHTML = '<i class="fa fa-fw fa-tags" aria-hidden="true"></i> ' + escapeHtml(tagsLabel);
+      tagsPara.appendChild(label);
+
+      tagsPara.appendChild(document.createTextNode(' '));
+
+      post.tags.forEach((tag, index) => {
+        const tagSpan = document.createElement('span');
+        tagSpan.className = 'archive__item-tag';
+        tagSpan.textContent = tag;
+        tagsPara.appendChild(tagSpan);
+
+        if (index < post.tags.length - 1) {
+          const separator = document.createElement('span');
+          separator.className = 'sep';
+          separator.textContent = ', ';
+          tagsPara.appendChild(separator);
+        }
+      });
+
+      article.appendChild(tagsPara);
+    }
+
     wrapper.appendChild(article);
     return wrapper;
   };
@@ -154,8 +182,9 @@
           index = data.map((item) => {
             const content = (item.content || '').toString();
             const categories = Array.isArray(item.categories) ? item.categories : [];
+            const tags = Array.isArray(item.tags) ? item.tags : [];
             const title = item.title || '';
-            const searchText = normalise([title, content, categories.join(' ')].join(' '));
+            const searchText = normalise([title, content, categories.join(' '), tags.join(' ')].join(' '));
 
             return {
               title,
@@ -163,6 +192,7 @@
               date: item.date || '',
               content,
               categories,
+              tags,
               searchText
             };
           });

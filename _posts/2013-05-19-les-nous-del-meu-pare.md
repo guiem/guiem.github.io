@@ -8,6 +8,13 @@ guid: 'http://guiem.info/?p=676'
 permalink: /les-nous-del-meu-pare/
 categories:
     - personal
+tags:
+    - pare
+    - father
+    - sacrifici
+    - sacrifice
+    - nous
+    - nuts
 ---
 
 Avui el meu pare no s’ha menjat una de les seves nous. Vols que t’expliqui com ho sé?

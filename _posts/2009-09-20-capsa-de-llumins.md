@@ -12,6 +12,13 @@ blogger_permalink:
     - /2009/09/capsa-de-llumins.html
 categories:
     - personal
+tags:
+    - coratge
+    - courage
+    - por
+    - fear
+    - catarsi
+    - catharsis
 ---
 
 Visc en una capsa de llumins.  

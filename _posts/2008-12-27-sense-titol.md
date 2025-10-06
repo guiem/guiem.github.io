@@ -12,6 +12,13 @@ blogger_permalink:
     - /2008/12/vens-al-meu-costat.html
 categories:
     - personal
+tags:
+    - espiritualitat
+    - spirituality
+    - sentit
+    - meaning
+    - buidor
+    - emptiness
 ---
 
 Vens al meu costat.  

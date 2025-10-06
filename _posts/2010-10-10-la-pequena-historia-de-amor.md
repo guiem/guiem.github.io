@@ -12,6 +12,13 @@ blogger_permalink:
     - /2010/10/la-pequena-historia-de-amor.html
 categories:
     - personal
+tags:
+    - inmortalidad
+    - immortality
+    - amor
+    - love
+    - redes-sociales
+    - social-networks
 ---
 
 La pequeña historia de amor de Durrell no fue triste. Tampoco alegre. Simplemente no fue suya. ¿No?

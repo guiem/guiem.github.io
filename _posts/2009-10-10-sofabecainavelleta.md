@@ -12,6 +12,13 @@ blogger_permalink:
     - /2009/10/sofabecainavelleta.html
 categories:
     - personal
+tags:
+    - somni
+    - dream
+    - velleta
+    - elderly
+    - misteri
+    - mystery
 ---
 
 Aquests dies estic sol al pis i, com és habitual, després de dinar he anat a fer una petita becaina. Crec que estava somiant alguna cosa agradable, potser infantil i força lleugera. Sí, crec que sí que era un somni prou gustós, amb banda sonora de Vivaldi…

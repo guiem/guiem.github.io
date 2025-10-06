@@ -8,6 +8,13 @@ guid: 'http://guiem.info/?p=811'
 permalink: /el-chico-de-la-nuca/
 categories:
     - personal
+tags:
+    - identitat
+    - identity
+    - quantica
+    - quantum
+    - gat
+    - cat
 ---
 
 El chico de la nuca es un concepto abstracto. Percibido y creado por la inteligencia de alguien que bien podría habitar el otro lado de la calle, aunque sólo fuera parcialmente. Concebido posiblemente en [Domingo](https://www.facebook.com/domingo.estudio)…

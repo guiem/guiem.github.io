@@ -8,6 +8,13 @@ guid: 'http://guiem.info/?p=566'
 permalink: /pandereta/
 categories:
     - personal
+tags:
+    - burocracia
+    - bureaucracy
+    - ambaixada
+    - embassy
+    - titol
+    - diploma
 ---
 
 Normalment, després d’un parell de segles d’haver acabat els estudis universitaris, t’envien un avís de que ja pots recollir el teu títol.

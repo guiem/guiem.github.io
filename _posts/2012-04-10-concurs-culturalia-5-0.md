@@ -8,6 +8,12 @@ guid: 'http://guiem.info/?p=590'
 permalink: /concurs-culturalia-5-0/
 categories:
     - personal
+tags:
+    - microrelat
+    - microstory
+    - concurs
+    - contest
+    - culturalia
 ---
 
 He escrit [aquest](http://guiem.info/culturalia/inici.html) microrelat pel concurs de Culturàlia 5.0.  

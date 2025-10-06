@@ -8,6 +8,13 @@ guid: 'https://guiem.info/?p=1000'
 permalink: /proyector/
 categories:
     - personal
+tags:
+    - universo
+    - universe
+    - percepcion
+    - perception
+    - luz
+    - light
 ---
 
 <span class="s1">Si no me hubiesen contado que el universo es tan grande, pensaría que todo sucede dentro de mí. Que al inclinar la cabeza a la izquierda el horizonte se ladea junto a mí. Que soy un proyector.</span>
