@@ -22,6 +22,14 @@ layout: default
 
     {{ content }}
 
+    {% if page.personal_search %}
+      <div class="archive__search">
+        <label class="sr-only" for="personal-search-input">{{ page.personal_search_label | default: "Search personal posts" }}</label>
+        <input id="personal-search-input" type="search" placeholder="{{ page.personal_search_placeholder | default: "Search personal posts..." }}" autocomplete="off" aria-controls="personal-search-results" data-search-src="{{ '/search-personal.json' | relative_url }}">
+      </div>
+      <div id="personal-search-results" class="archive__search-results" aria-live="polite" hidden></div>
+    {% endif %}
+
     {%- comment -%}
       Build our post list, optionally filtering by page.filter_category
     {%- endcomment -%}
@@ -32,6 +40,7 @@ layout: default
     {% endif %}
 
     {%- capture written_year -%}'None'{%- endcapture -%}
+    {% if page.personal_search %}<div id="personal-search-list">{% endif %}
     {% for post in the_posts %}
       {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
       {% if year != written_year %}
@@ -40,5 +49,9 @@ layout: default
       {% endif %}
       {% include archive-single.html %}
     {% endfor %}
+    {% if page.personal_search %}
+      </div>
+      <script src="{{ '/assets/js/personal-search.js' | relative_url }}" defer></script>
+    {% endif %}
   </div>
 </div>
