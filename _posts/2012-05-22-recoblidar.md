@@ -8,6 +8,13 @@ guid: 'http://guiem.info/?p=603'
 permalink: /recoblidar/
 categories:
     - personal
+tags:
+    - inspiracio
+    - inspiration
+    - infancia
+    - childhood
+    - educacio
+    - education
 ---
 
 – Uooo! Ei! Uooo, uououooo! Mira, miiira!

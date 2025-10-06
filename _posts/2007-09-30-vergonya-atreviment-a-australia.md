@@ -12,6 +12,14 @@ blogger_permalink:
     - /2007/09/pujava-per-primer-cop-lautobus-324-de.html
 categories:
     - personal
+tags:
+    - autobus
+    - bus
+    - australia
+    - vergonya
+    - shame
+    - atreviment
+    - boldness
 ---
 
 Pujava per primer cop a l’autobús 324 de la urbanització Rose Bay (Sydney, Australia). El conductor estava situat a la dreta i conseqüentment conduïa desde aquell costat – la qual cosa sempre em feia sentir papallonetes a l’estómac voltant les rotondes.

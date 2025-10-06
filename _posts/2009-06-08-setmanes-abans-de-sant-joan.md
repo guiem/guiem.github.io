@@ -12,6 +12,12 @@ blogger_permalink:
     - /2009/08/setmanes-abans-de-sant-joan.html
 categories:
     - personal
+tags:
+    - records
+    - memories
+    - olfacte
+    - scent
+    - menorca
 ---
 
 Arribat a Menorca i dins es cotxe de sa germana he sentit olor de palla.  

@@ -8,6 +8,12 @@ guid: 'http://guiem.info/?p=922'
 permalink: /sol-de-soledat/
 categories:
     - personal
+tags:
+    - soledat
+    - solitude
+    - menorca
+    - compartir
+    - sharing
 ---
 
 A vegades es fa difícil no compartir el goig.

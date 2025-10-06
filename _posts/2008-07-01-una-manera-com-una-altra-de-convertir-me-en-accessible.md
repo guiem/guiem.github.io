@@ -12,6 +12,13 @@ blogger_permalink:
     - /2008/07/una-manera-com-una-altra-de-convertir.html
 categories:
     - personal
+tags:
+    - amor
+    - love
+    - lleialtat
+    - loyalty
+    - accesibilitat
+    - accessibility
 ---
 
 Una persona és accessible si està disposada a concedir part del seu temps a qui reclama la seva atenció i interès.

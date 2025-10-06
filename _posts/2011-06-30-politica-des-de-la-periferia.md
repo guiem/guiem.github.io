@@ -12,6 +12,13 @@ blogger_permalink:
     - /2011/06/politica-des-de-la-periferia.html
 categories:
     - personal
+tags:
+    - desert
+    - desert
+    - curiositat
+    - curiosity
+    - periferia
+    - periphery
 ---
 
 <span>Entre les dunes d’arena de relleu muntanyós escolto els grills cantar. Les onades de sorra sota els meus peus no em permeten veure-hi més enllà. M’és igual, però, tanmateix jo no faig més que donar voltes.</span>

@@ -12,6 +12,13 @@ blogger_permalink:
     - /2010/07/8-am-carai-mhe-adormit.html
 categories:
     - personal
+tags:
+    - vaixell
+    - ferry
+    - insomni
+    - insomnia
+    - existencialisme
+    - existentialism
 ---
 
 Són les 2.20 a.m. i no puc dormir. Aquesta vegada no és per insomni. No és allò que tens milions d’idees que no et permeten descansar. Res explota en el meu cervell. Zero creativitat. És només que estic dins un vaixell amb seients molt incòmodes.

@@ -8,6 +8,13 @@ guid: 'http://guiem.info/?p=928'
 permalink: /la-finestra-i-el-nomes/
 categories:
     - personal
+tags:
+    - finestra
+    - window
+    - observacio
+    - observation
+    - detall
+    - detail
 ---
 
 És només una finestra. Aviso, eh. Només una finestra. Vull dir, que és només una obertura de forma rectangular feta a un mur, a certa distància del terra, per donar llum i ventilació a l’interior d’una construcció.

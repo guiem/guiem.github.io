@@ -8,6 +8,13 @@ guid: 'http://guiem.info/?p=669'
 permalink: /disciplina/
 categories:
     - personal
+tags:
+    - disciplina
+    - discipline
+    - canvi
+    - change
+    - papallona
+    - butterfly
 ---
 
 Al matí inhalo les ganes de canviar el món.  

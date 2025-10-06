@@ -8,6 +8,10 @@ guid: 'http://guiem.info/?p=461'
 permalink: /my-mistake/
 categories:
     - personal
+tags:
+    - mistake
+    - bus
+    - serendipity
 ---
 
 A little ‘siesta’ in the bus.  

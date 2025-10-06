@@ -12,6 +12,11 @@ blogger_permalink:
     - /2011/02/ben-de-ver-de-veres.html
 categories:
     - personal
+tags:
+    - amor
+    - love
+    - poesia
+    - poetry
 ---
 
 amor ho és ben tot  

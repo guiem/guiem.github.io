@@ -12,6 +12,13 @@ blogger_permalink:
     - /2008/05/del-present-el-mon-de-les-idees-i-el.html
 categories:
     - personal
+tags:
+    - futur
+    - future
+    - obsessio
+    - obsession
+    - amor
+    - love
 ---
 
 Pròximes les dotze de la nit d’un dia qualsevol n’Alexandre Posterus (Alex pels amics) decidia baixar a tirar les escombraries que religiosament anava separant per al reciclatge al llarg de tota la setmana…

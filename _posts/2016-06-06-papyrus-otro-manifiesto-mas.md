@@ -8,6 +8,12 @@ guid: 'http://guiem.info/?p=917'
 permalink: /papyrus-otro-manifiesto-mas/
 categories:
     - personal
+tags:
+    - lectura
+    - reading
+    - atencio
+    - attention
+    - internet
 ---
 
 Si no dispones de tiempo para leer esto, no lo hagas.

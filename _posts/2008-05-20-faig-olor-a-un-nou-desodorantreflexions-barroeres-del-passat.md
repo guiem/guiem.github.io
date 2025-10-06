@@ -12,6 +12,13 @@ blogger_permalink:
     - /2008/05/faig-olor-un-nou-desodorantreflexions.html
 categories:
     - personal
+tags:
+    - escacs
+    - chess
+    - identitat
+    - identity
+    - autoconeixement
+    - self-knowledge
 ---
 
 “Què és el jo? Si fas aquesta pregunta a qualsevol persona, la majoria començarà a dir “és la part de la ment que realment sóc jo”. “És la part més important per mi, és la meva identitat que ho manté tot coherent i puguis o no explicar-ho científicament jo  

@@ -8,6 +8,12 @@ guid: 'http://guiem.info/?p=153'
 permalink: /recaptcha/
 categories:
     - personal
+tags:
+    - cooperacio
+    - cooperation
+    - recaptcha
+    - compartir
+    - sharing
 ---
 
 El projecte de final de carrera d’en Llort havia arribat a un punt crític. Tal i com ho tenia ara: aprovar o suspendre eren dos esdeveniments equiprobables. Tot plegat era una merda perquè s’hi havia esforçat moltíssim. Bé, feina, el que es diu feina, no n’havia fet tanta – canviava les condicions de l’experiment cada cert temps i amb certa aleatorietat. Però la idea era bona. Si les coses anaven bé, tot es podia girar cap a una matrícula d’honor!

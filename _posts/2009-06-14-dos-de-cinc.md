@@ -12,6 +12,13 @@ blogger_permalink:
     - /2009/06/dos-de-cinc.html
 categories:
     - personal
+tags:
+    - privacitat
+    - privacy
+    - pensament
+    - thought
+    - visibilitat
+    - visibility
 ---
 
 Tots hem sentit parlar de l’home invisible.  

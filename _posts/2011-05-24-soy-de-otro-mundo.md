@@ -12,6 +12,13 @@ blogger_permalink:
     - /2011/05/soy-de-otro-mundo.html
 categories:
     - personal
+tags:
+    - gentilesa
+    - kindness
+    - autobus
+    - bus
+    - ancia
+    - elder
 ---
 
 *No tengo la piel verde, pero soy de otro mundo.*  

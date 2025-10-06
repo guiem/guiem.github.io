@@ -12,6 +12,13 @@ blogger_permalink:
     - /2009/02/lhome-de-la-tos-infinita.html
 categories:
     - personal
+tags:
+    - tos
+    - cough
+    - perseverancia
+    - perseverance
+    - superacio
+    - overcoming
 ---
 
 Poc s’ho pensava aquell homenet de rostre quasi pàl·lid i cos diminut que aquella primera esbufegada el convertiria en l’home de la tos infinita.

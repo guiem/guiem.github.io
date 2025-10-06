@@ -25,7 +25,7 @@ layout: default
     {% if page.personal_search %}
       <div class="archive__search">
         <label class="sr-only" for="personal-search-input">{{ page.personal_search_label | default: "Search personal posts" }}</label>
-        <input id="personal-search-input" type="search" placeholder="{{ page.personal_search_placeholder | default: "Search personal posts..." }}" autocomplete="off" aria-controls="personal-search-results" data-search-src="{{ '/search-personal.json' | relative_url }}">
+        <input id="personal-search-input" type="search" placeholder="{{ page.personal_search_placeholder | default: "Search personal posts..." }}" autocomplete="off" aria-controls="personal-search-results" data-search-src="{{ '/search-personal.json' | relative_url }}" data-tags-label="{{ site.data.ui-text[site.locale].tags_label | default: "Tags:" }}">
       </div>
       <div id="personal-search-results" class="archive__search-results" aria-live="polite" hidden></div>
     {% endif %}

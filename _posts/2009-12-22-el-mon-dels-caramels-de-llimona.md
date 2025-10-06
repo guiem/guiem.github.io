@@ -12,6 +12,13 @@ blogger_permalink:
     - /2009/12/el-mon-dels-caramels-de-llimona.html
 categories:
     - personal
+tags:
+    - infancia
+    - childhood
+    - imaginacio
+    - imagination
+    - consol
+    - comfort
 ---
 
 Ahir, mentre em ficava dins un llit que ja casi no és el meu, se’m van començar a cansar els ulls. El meu cos es sentia estrany i es remenava a través de la superfície dels llençols, com aquell que fa ronda de reconeixement davant el desconegut.

@@ -12,6 +12,13 @@ blogger_permalink:
     - /2011/04/xines-eficient.html
 categories:
     - personal
+tags:
+    - menjar-xines
+    - chinese-food
+    - repartiment
+    - delivery
+    - telefon
+    - telephone
 ---
 
 – Hola

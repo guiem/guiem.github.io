@@ -12,6 +12,13 @@ blogger_permalink:
     - /2008/02/duna-fellacio-testicular.html
 categories:
     - personal
+tags:
+    - amor
+    - love
+    - paraula
+    - word
+    - percepcio
+    - perception
 ---
 
 Aquell home tenia un posat casi tan atípic com el relat de la seva història d’amor:

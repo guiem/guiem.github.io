@@ -12,6 +12,13 @@ blogger_permalink:
     - /2010/02/lheroi-de-lautobus.html
 categories:
     - personal
+tags:
+    - honestedat
+    - honesty
+    - autobus
+    - bus
+    - generositat
+    - generosity
 ---
 
 Encara no fa ni una setmana. A l’autobús, línia 6 (sis), baixant cap a Passeig de Gràcia, m’assec darrera i dos seients a l’esquerra hi veig una funda que sembla contenir un portàtil. De totes maneres no ho confirmo, dono el suposat portàtil al conductor de l’autobús.Avui mateix. A l’autobús, línia 6 (sis), pujant de Passeig de Gràcia, m’assec darrera i dos seients a l’esquerra no hi veig res. Un cop assegut allà localitzo dues posicions lliures una mica més endavant. I mira, m’aixeco i m’hi assec. Allà hi trobo una cartera, d’aquelles de dona major adinerada. De totes maneres no ho confirmo, dono la suposada cartera plena de diners al conductor de l’autobús.  

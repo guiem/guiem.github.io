@@ -8,6 +8,13 @@ guid: 'http://guiem.info/?p=673'
 permalink: /que-causalidad/
 categories:
     - personal
+tags:
+    - causalidad
+    - causality
+    - violencia
+    - violence
+    - lenguaje
+    - language
 ---
 
 Observo a un niño y a su padre.

@@ -8,6 +8,13 @@ guid: 'http://guiem.info/?p=686'
 permalink: /somni-lucid/
 categories:
     - personal
+tags:
+    - somni
+    - dream
+    - luciditat
+    - lucidity
+    - volar
+    - flying
 ---
 
 He tingut un somni lúcid.  

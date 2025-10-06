@@ -12,6 +12,13 @@ blogger_permalink:
     - /2010/06/amor-i-sexe-amb-robots.html
 categories:
     - personal
+tags:
+    - robots
+    - robotics
+    - amor
+    - love
+    - tecnologia
+    - technology
 ---
 
 No és futurisme, trepitjo el present.  

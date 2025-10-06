@@ -16,7 +16,8 @@ permalink: /search-personal.json
       | replace: "\r", " "
       | strip
       | jsonify }},
-    "categories": {{ post.categories | jsonify }}
+    "categories": {{ post.categories | jsonify }},
+    "tags": {{ post.tags | jsonify }}
   }{%- unless forloop.last -%},{%- endunless -%}
 {%- endfor -%}
 ]
