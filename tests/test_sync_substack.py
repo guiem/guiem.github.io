@@ -54,13 +54,14 @@ class ImportTests(unittest.TestCase):
         import json
         importer.TRANSLATIONS_FILE.write_text(json.dumps({
             "numbers-and-love": [
-                "https://gboschbo.substack.com/p/els-nombres-i-lamor",
-                "https://gboschbo.substack.com/p/numbers-and-love"
+                {"url": "https://gboschbo.substack.com/p/els-nombres-i-lamor", "lang": "ca"},
+                {"url": "https://gboschbo.substack.com/p/numbers-and-love", "lang": "en"}
             ]
         }), encoding="utf-8")
         self.assertEqual(importer.sync(rss()), (1, 0))
         text = next(importer.POSTS.glob("*.md")).read_text()
         self.assertIn('translation_key: "numbers-and-love"', text)
+        self.assertIn("lang: ca", text)
         self.assertEqual(importer.sync(rss()), (0, 0))
 
     def test_invalid_translation_mapping_fails_closed(self):
