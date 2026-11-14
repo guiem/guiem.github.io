@@ -1,8 +1,7 @@
 """Offline smoke tests for the Substack importer; no network or GitHub writes."""
+import subprocess
 import tempfile
-from io import BytesIO
 from unittest.mock import patch
-from urllib.error import HTTPError
 from pathlib import Path
 import unittest
 
@@ -72,32 +71,43 @@ class ImportTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             importer.sync(rss())
 
+    def test_curl_status_and_body(self):
+        completed = subprocess.CompletedProcess(
+            args=["curl"], returncode=0, stdout=rss() + b"\n200", stderr=b""
+        )
+        with patch.object(importer.subprocess, "run", return_value=completed) as mock_run:
+            status, body = importer.curl_get(importer.FEED_URL)
+        self.assertEqual((status, body), (200, rss()))
+        self.assertEqual(mock_run.call_args.args[0][-1], importer.FEED_URL)
+
     def test_direct_fetch_does_not_use_proxy(self):
-        with patch.object(importer, "urlopen", return_value=BytesIO(rss())) as mock_open:
+        with patch.object(importer, "curl_get", return_value=(200, rss())) as mock_get:
             raw = importer.fetch_feed()
         self.assertEqual(raw, rss())
-        self.assertEqual(mock_open.call_count, 1)
-        self.assertEqual(mock_open.call_args.args[0].full_url, importer.FEED_URL)
+        mock_get.assert_called_once_with(importer.FEED_URL)
 
     def test_403_falls_back_to_cors_dev(self):
-        forbidden = HTTPError(importer.FEED_URL, 403, "Forbidden", {}, None)
-        with patch.object(importer, "urlopen", side_effect=[forbidden, BytesIO(rss())]) as mock_open:
+        with patch.object(importer, "curl_get", side_effect=[(403, b"blocked"), (200, rss())]) as mock_get:
             raw = importer.fetch_feed()
         self.assertEqual(raw, rss())
-        self.assertEqual(mock_open.call_count, 2)
-        self.assertEqual(mock_open.call_args.args[0].full_url, importer.CORS_PROXY_URL)
+        self.assertEqual([call.args[0] for call in mock_get.call_args_list],
+                         [importer.FEED_URL, importer.CORS_PROXY_URL])
 
     def test_non_403_does_not_use_proxy(self):
-        unavailable = HTTPError(importer.FEED_URL, 503, "Unavailable", {}, None)
-        with patch.object(importer, "urlopen", side_effect=unavailable) as mock_open:
-            with self.assertRaises(HTTPError):
+        with patch.object(importer, "curl_get", return_value=(503, b"Unavailable")) as mock_get:
+            with self.assertRaisesRegex(RuntimeError, "HTTP 503"):
                 importer.fetch_feed()
-        self.assertEqual(mock_open.call_count, 1)
+        mock_get.assert_called_once_with(importer.FEED_URL)
 
     def test_proxy_html_response_rejected(self):
-        forbidden = HTTPError(importer.FEED_URL, 403, "Forbidden", {}, None)
-        with patch.object(importer, "urlopen", side_effect=[forbidden, BytesIO(b"<html>blocked</html>")]):
+        with patch.object(importer, "curl_get", side_effect=[(403, b"blocked"), (200, b"<html>blocked</html>")]):
             with self.assertRaisesRegex(ValueError, "not a valid"):
+                importer.fetch_feed()
+        self.assertEqual(list(importer.POSTS.glob("*.md")), [])
+
+    def test_proxy_error_is_not_published(self):
+        with patch.object(importer, "curl_get", side_effect=[(403, b""), (429, b"rate limited")]):
+            with self.assertRaisesRegex(RuntimeError, "HTTP 429"):
                 importer.fetch_feed()
         self.assertEqual(list(importer.POSTS.glob("*.md")), [])
 
@@ -106,7 +116,7 @@ class ImportTests(unittest.TestCase):
             b"https://gboschbo.substack.com/p/",
             b"https://other.substack.com/p/",
         )
-        with patch.object(importer, "urlopen", return_value=BytesIO(alien)):
+        with patch.object(importer, "curl_get", return_value=(200, alien)):
             with self.assertRaisesRegex(ValueError, "Unexpected post URL"):
                 importer.fetch_feed()
 
