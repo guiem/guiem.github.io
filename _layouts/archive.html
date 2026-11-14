@@ -42,12 +42,23 @@ layout: default
     {%- capture written_year -%}'None'{%- endcapture -%}
     {% if page.personal_search %}<div id="personal-search-list">{% endif %}
     {% for post in the_posts %}
+      {%- comment -%}Show one entry per translated conversation (prefer Catalan).{%- endcomment -%}
+      {% assign show_post = true %}
+      {% if post.translation_key and post.tags contains 'converses-de-casa' %}
+        {% assign same_conversation = site.posts | where: 'translation_key', post.translation_key %}
+        {% assign catalan_versions = same_conversation | where: 'lang', 'ca' %}
+        {% assign preferred_post = catalan_versions | first %}
+        {% unless preferred_post %}{% assign preferred_post = same_conversation | first %}{% endunless %}
+        {% if preferred_post.url != post.url %}{% assign show_post = false %}{% endif %}
+      {% endif %}
+      {% if show_post %}
       {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
       {% if year != written_year %}
         <h2 id="{{ year | slugify }}" class="archive__subtitle">{{ year }}</h2>
         {% capture written_year %}{{ year }}{% endcapture %}
       {% endif %}
       {% include archive-single.html %}
+      {% endif %}
     {% endfor %}
     {% if page.personal_search %}
       </div>
