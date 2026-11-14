@@ -1,5 +1,8 @@
 """Offline smoke tests for the Substack importer; no network or GitHub writes."""
 import tempfile
+from io import BytesIO
+from unittest.mock import patch
+from urllib.error import HTTPError
 from pathlib import Path
 import unittest
 
@@ -68,6 +71,44 @@ class ImportTests(unittest.TestCase):
         importer.TRANSLATIONS_FILE.write_text('{"x": ["http://example.com/a"]}', encoding="utf-8")
         with self.assertRaises(ValueError):
             importer.sync(rss())
+
+    def test_direct_fetch_does_not_use_proxy(self):
+        with patch.object(importer, "urlopen", return_value=BytesIO(rss())) as mock_open:
+            raw = importer.fetch_feed()
+        self.assertEqual(raw, rss())
+        self.assertEqual(mock_open.call_count, 1)
+        self.assertEqual(mock_open.call_args.args[0].full_url, importer.FEED_URL)
+
+    def test_403_falls_back_to_cors_dev(self):
+        forbidden = HTTPError(importer.FEED_URL, 403, "Forbidden", {}, None)
+        with patch.object(importer, "urlopen", side_effect=[forbidden, BytesIO(rss())]) as mock_open:
+            raw = importer.fetch_feed()
+        self.assertEqual(raw, rss())
+        self.assertEqual(mock_open.call_count, 2)
+        self.assertEqual(mock_open.call_args.args[0].full_url, importer.CORS_PROXY_URL)
+
+    def test_non_403_does_not_use_proxy(self):
+        unavailable = HTTPError(importer.FEED_URL, 503, "Unavailable", {}, None)
+        with patch.object(importer, "urlopen", side_effect=unavailable) as mock_open:
+            with self.assertRaises(HTTPError):
+                importer.fetch_feed()
+        self.assertEqual(mock_open.call_count, 1)
+
+    def test_proxy_html_response_rejected(self):
+        forbidden = HTTPError(importer.FEED_URL, 403, "Forbidden", {}, None)
+        with patch.object(importer, "urlopen", side_effect=[forbidden, BytesIO(b"<html>blocked</html>")]):
+            with self.assertRaisesRegex(ValueError, "not a valid"):
+                importer.fetch_feed()
+        self.assertEqual(list(importer.POSTS.glob("*.md")), [])
+
+    def test_wrong_publication_feed_rejected(self):
+        alien = rss().replace(
+            b"https://gboschbo.substack.com/p/",
+            b"https://other.substack.com/p/",
+        )
+        with patch.object(importer, "urlopen", return_value=BytesIO(alien)):
+            with self.assertRaisesRegex(ValueError, "Unexpected post URL"):
+                importer.fetch_feed()
 
     def test_empty_feed_fails_closed(self):
         with self.assertRaises(ValueError):
