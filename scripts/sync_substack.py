@@ -203,7 +203,18 @@ def main() -> None:
     if args.feed_file:
         raw = args.feed_file.read_bytes()
     else:
-        req = Request(FEED_URL, headers={"User-Agent": "ConversesDeCasaSync/1.0 (+https://github.com/guiem/guiem.github.io)"})
+        # Substack sometimes rejects generic Python User-Agent strings with HTTP 403.
+        # Send typical browser navigation headers, without cookies or authentication.
+        req = Request(FEED_URL, headers={
+            "User-Agent": (
+                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+                "AppleWebKit/537.36 (KHTML, like Gecko) "
+                "Chrome/131.0.0.0 Safari/537.36"
+            ),
+            "Accept": "application/rss+xml, application/xml, text/xml, */*;q=0.8",
+            "Accept-Language": "en-US,en;q=0.9",
+            "Cache-Control": "no-cache",
+        })
         with urlopen(req, timeout=30) as response:
             raw = response.read()
     sync(raw)
