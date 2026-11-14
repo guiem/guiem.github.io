@@ -30,14 +30,14 @@
 ```json
 {
   "love-and-numbers": [
-    "https://gboschbo.substack.com/p/catalan-slug",
-    "https://gboschbo.substack.com/p/spanish-slug",
-    "https://gboschbo.substack.com/p/english-slug"
+    {"url": "https://gboschbo.substack.com/p/catalan-slug", "lang": "ca"},
+    {"url": "https://gboschbo.substack.com/p/spanish-slug", "lang": "es"},
+    {"url": "https://gboschbo.substack.com/p/english-slug", "lang": "en"}
   ]
 }
 ```
 
-The importer reads this file and assigns the same `translation_key` to those posts. The **individual article page** then displays links to each available language. The personal archive and its search index show one entry per linked group, preferring Catalan; the standalone translation pages remain directly accessible. No title-based guessing is used. A mapping update takes effect on the next sync while those posts are available in the RSS feed. Until URLs are grouped, each post has its own stable key and the language switcher has no other versions to show.
+The importer reads this file and assigns the same `translation_key` to those posts, using the explicit `lang` labels (without relying on Substack category tags). The **individual article page** then displays links to each available language. The personal archive and its search index show one entry per linked group, preferring Catalan; the standalone translation pages remain directly accessible. No title-based guessing is used. A mapping update takes effect on the next sync while those posts are available in the RSS feed. Until URLs are grouped, each post has its own stable key and the language switcher has no other versions to show.
 
 ### Visibility / privacy
 
