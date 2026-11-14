@@ -13,10 +13,9 @@ import hashlib
 import json
 from pathlib import Path
 import re
+import subprocess
 import unicodedata
 from urllib.parse import urlparse
-from urllib.error import HTTPError
-from urllib.request import Request, urlopen
 
 import feedparser
 from bs4 import BeautifulSoup
@@ -214,33 +213,42 @@ def validate_fetched_feed(raw: bytes) -> None:
             raise ValueError(f"Unexpected post URL in fetched feed: {entry.get('link')}")
 
 
-def fetch_feed() -> bytes:
-    # Prefer a direct request. Only route the public feed through cors.dev if
-    # GitHub's cloud IP is rejected with HTTP 403; do not send credentials.
-    headers = {
-        "User-Agent": (
-            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-            "AppleWebKit/537.36 (KHTML, like Gecko) "
-            "Chrome/131.0.0.0 Safari/537.36"
-        ),
-        "Accept": "application/rss+xml, application/xml, text/xml, */*;q=0.8",
-        "Accept-Language": "en-US,en;q=0.9",
-        "Cache-Control": "no-cache",
-    }
-    request = Request(FEED_URL, headers=headers)
-    try:
-        with urlopen(request, timeout=30) as response:
-            raw = response.read()
-        print("Fetched Substack RSS directly.")
-    except HTTPError as error:
-        if error.code != 403:
-            raise
-        print("Substack returned HTTP 403; retrying the public RSS feed through cors.dev.")
-        proxy_request = Request(CORS_PROXY_URL, headers=headers)
-        with urlopen(proxy_request, timeout=30) as response:
-            raw = response.read()
-        print("Fetched Substack RSS through cors.dev.")
+def curl_get(url: str) -> tuple[int, bytes]:
+    """Fetch with curl, recording HTTP status separately from the response body.
 
+    Unlike Python urllib, curl returned 200 from the GitHub Actions diagnostic.
+    """
+    result = subprocess.run(
+        [
+            "curl", "--silent", "--show-error", "--location",
+            "--max-time", "30", "--connect-timeout", "10",
+            "--write-out", "\n%{http_code}",
+            url,
+        ],
+        capture_output=True,
+        timeout=40,
+        check=False,
+    )
+    if result.returncode != 0:
+        detail = result.stderr.decode("utf-8", errors="replace").strip()
+        raise RuntimeError(f"curl transport failed (exit {result.returncode}): {detail}")
+    try:
+        body, status_bytes = result.stdout.rsplit(b"\n", 1)
+        status = int(status_bytes)
+    except (ValueError, TypeError) as error:
+        raise ValueError("curl did not return a valid HTTP status") from error
+    return status, body
+
+
+def fetch_feed() -> bytes:
+    status, raw = curl_get(FEED_URL)
+    print(f"Direct Substack fetch: HTTP {status}")
+    if status == 403:
+        print("Direct Substack returned 403; trying cors.dev fallback.")
+        status, raw = curl_get(CORS_PROXY_URL)
+        print(f"cors.dev fallback fetch: HTTP {status}")
+    if status != 200:
+        raise RuntimeError(f"Unable to fetch Substack feed: HTTP {status}")
     validate_fetched_feed(raw)
     return raw
 
