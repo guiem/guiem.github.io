@@ -26,7 +26,7 @@ POSTS = Path("_posts")
 TRANSLATIONS_FILE = Path("_data/substack_translations.json")
 
 
-def translation_groups() -> dict[str, str]:
+def translation_groups() -> dict[str, tuple[str, str | None]]:
     """Map full Substack URLs to a shared group key for multilingual siblings."""
     if not TRANSLATIONS_FILE.exists():
         return {}
@@ -39,16 +39,22 @@ def translation_groups() -> dict[str, str]:
             raise ValueError(f"Invalid translation group: {group}")
         if not isinstance(urls, list):
             raise ValueError(f"Group {group} must list URLs")
-        for url in urls:
-            if not isinstance(url, str):
-                raise ValueError(f"Non-string URL in group {group}")
+        for item in urls:
+            if isinstance(item, str):
+                url, language = item, None
+            elif isinstance(item, dict):
+                url, language = item.get("url"), item.get("lang")
+            else:
+                raise ValueError(f"Invalid translation entry in group {group}")
+            if not isinstance(url, str) or (language is not None and language not in {"ca", "es", "en"}):
+                raise ValueError(f"Invalid URL or language in group {group}: {item}")
             normalized = canonical(url)
             parsed = urlparse(normalized)
             if parsed.scheme != "https" or parsed.netloc.lower() != "gboschbo.substack.com" or not parsed.path.startswith("/p/"):
                 raise ValueError(f"Unrecognized Substack URL: {url}")
             if normalized in groups:
                 raise ValueError(f"Duplicate translation URL: {url}")
-            groups[normalized] = group
+            groups[normalized] = (group, language)
     return groups
 SOURCE_LINE = re.compile(r'^substack_url:\s*["\x27]?(.+?)["\x27]?\s*$', re.MULTILINE)
 
@@ -126,12 +132,13 @@ def existing_imports() -> dict[str, Path]:
     return found
 
 
-def render(entry, url: str, slug: str, date: str, groups: dict[str, str]) -> str:
+def render(entry, url: str, slug: str, date: str, groups: dict[str, tuple[str, str | None]]) -> str:
     title = entry.get("title", "").strip() or slug.replace("-", " ").capitalize()
-    language = detect_language(entry)
+    mapped_group, mapped_language = groups.get(url, (None, None))
+    language = mapped_language or detect_language(entry)
     source_hash = hashlib.sha256(url.encode("utf-8")).hexdigest()[:12]
     # Sibling translations are linked by explicit URL grouping in the data file.
-    group_key = groups.get(url, f"substack-{source_hash}")
+    group_key = mapped_group or f"substack-{source_hash}"
     head = [
         "---",
         "layout: conversa",
