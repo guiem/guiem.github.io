@@ -1,0 +1,18 @@
+{% assign converses = site.posts | where_exp: "post", "post.categories contains 'converses-de-casa'" %}
+{% assign count = 0 %}
+<ul class="list-unstyled">
+{% for post in converses %}
+  {% assign post_lang = post.lang | default: 'ca' %}
+  {% if post_lang == include.lang %}
+    {% assign count = count | plus: 1 %}
+    <li style="margin-bottom: 1.5em;">
+      <h2 style="margin-bottom: .2em;"><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h2>
+      <small><time datetime="{{ post.date | date: '%Y-%m-%d' }}">{{ post.date | date: '%d/%m/%Y' }}</time></small>
+      {% if post.excerpt %}<div>{{ post.excerpt | markdownify }}</div>{% endif %}
+    </li>
+  {% endif %}
+{% endfor %}
+</ul>
+{% if count == 0 %}
+  <p>{{ include.empty_message }}</p>
+{% endif %}
