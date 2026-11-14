@@ -15,9 +15,9 @@
 - The workflow must already be on the default branch; GitHub only schedules workflows from the repository default branch (`master` in this repository).
 - In **Repository Settings → Actions → General → Workflow permissions**, allow GitHub Actions to create pull requests (if your organization/repository has that setting disabled). The workflow requires `contents: write` and `pull-requests: write` for its automatically generated branch and PR.
 - If the feed is temporarily empty or unreachable, the importer fails without proposing removal of content.
-- The importer requests Substack directly first. If the direct request returns **HTTP 403 only**, it retries the **public RSS feed** through `https://proxy.cors.dev/https://gboschbo.substack.com/feed`. No credentials or private content are forwarded. This third-party service sees requests for the public feed; availability and limits are outside our control.
+- The importer uses **curl** (rather than Python's urllib) to request Substack directly first, matching the successful GitHub Actions HTTP diagnostic. If the direct request returns **HTTP 403 only**, it retries the **public RSS feed** through `https://proxy.cors.dev/https://gboschbo.substack.com/feed`. No credentials or private content are forwarded. This third-party service sees requests for the public feed; availability and limits are outside our control.
 - The fetched response must parse as a nonempty RSS/Atom feed belonging to `gboschbo.substack.com`, with all entry URLs on that publication, before anything is written. If the proxy is blocked or returns HTML/an unrelated feed, the workflow fails closed and does not create an import PR.
-- To test a newly merged importer change, use **Actions → Propose Substack conversation sync → Run workflow** with `master`; note whether the logs report direct or cors.dev retrieval.
+- To test a newly merged importer change, use **Actions → Propose Substack conversation sync → Run workflow** with `master`; check the logged HTTP status for the direct fetch and, if used, the cors.dev fallback.
 
 - **Tests:** `python -m unittest discover -s tests -p 'test_sync_substack.py' -v` (requires the dependencies installed by the workflow).
 
