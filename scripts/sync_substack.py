@@ -222,7 +222,7 @@ def curl_get(url: str) -> tuple[int, bytes]:
         [
             "curl", "--silent", "--show-error", "--location",
             "--max-time", "30", "--connect-timeout", "10",
-            "--write-out", "\\n%{http_code}",
+            "--write-out", "\n%{http_code}",
             url,
         ],
         capture_output=True,
@@ -233,7 +233,7 @@ def curl_get(url: str) -> tuple[int, bytes]:
         detail = result.stderr.decode("utf-8", errors="replace").strip()
         raise RuntimeError(f"curl transport failed (exit {result.returncode}): {detail}")
     try:
-        body, status_bytes = result.stdout.rsplit(b"\\n", 1)
+        body, status_bytes = result.stdout.rsplit(b"\n", 1)
         status = int(status_bytes)
     except (ValueError, TypeError) as error:
         raise ValueError("curl did not return a valid HTTP status") from error
