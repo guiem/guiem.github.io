@@ -10,7 +10,7 @@ import argparse
 from datetime import datetime, timezone
 from email.utils import parsedate_to_datetime
 import hashlib
-import os
+import json
 from pathlib import Path
 import re
 import unicodedata
@@ -23,7 +23,39 @@ from markdownify import markdownify as to_markdown
 
 FEED_URL = "https://gboschbo.substack.com/feed"
 POSTS = Path("_posts")
-PREFIX = "substack-"
+TRANSLATIONS_FILE = Path("_data/substack_translations.json")
+
+
+def translation_groups() -> dict[str, tuple[str, str | None]]:
+    """Map full Substack URLs to a shared group key for multilingual siblings."""
+    if not TRANSLATIONS_FILE.exists():
+        return {}
+    data = json.loads(TRANSLATIONS_FILE.read_text(encoding="utf-8"))
+    if not isinstance(data, dict):
+        raise ValueError("Substack translations mapping must be a JSON object")
+    groups = {}
+    for group, urls in data.items():
+        if not isinstance(group, str) or not re.fullmatch(r"[a-zA-Z0-9][a-zA-Z0-9_-]*", group):
+            raise ValueError(f"Invalid translation group: {group}")
+        if not isinstance(urls, list):
+            raise ValueError(f"Group {group} must list URLs")
+        for item in urls:
+            if isinstance(item, str):
+                url, language = item, None
+            elif isinstance(item, dict):
+                url, language = item.get("url"), item.get("lang")
+            else:
+                raise ValueError(f"Invalid translation entry in group {group}")
+            if not isinstance(url, str) or (language is not None and language not in {"ca", "es", "en"}):
+                raise ValueError(f"Invalid URL or language in group {group}: {item}")
+            normalized = canonical(url)
+            parsed = urlparse(normalized)
+            if parsed.scheme != "https" or parsed.netloc.lower() != "gboschbo.substack.com" or not parsed.path.startswith("/p/"):
+                raise ValueError(f"Unrecognized Substack URL: {url}")
+            if normalized in groups:
+                raise ValueError(f"Duplicate translation URL: {url}")
+            groups[normalized] = (group, language)
+    return groups
 SOURCE_LINE = re.compile(r'^substack_url:\s*["\x27]?(.+?)["\x27]?\s*$', re.MULTILINE)
 
 
@@ -100,21 +132,22 @@ def existing_imports() -> dict[str, Path]:
     return found
 
 
-def render(entry, url: str, slug: str, date: str) -> str:
+def render(entry, url: str, slug: str, date: str, groups: dict[str, tuple[str, str | None]]) -> str:
     title = entry.get("title", "").strip() or slug.replace("-", " ").capitalize()
-    language = detect_language(entry)
+    mapped_group, mapped_language = groups.get(url, (None, None))
+    language = mapped_language or detect_language(entry)
     source_hash = hashlib.sha256(url.encode("utf-8")).hexdigest()[:12]
-    # Every imported URL has its own stable translation key. Human editors can
-    # align translated versions by changing keys in the proposed PR.
+    # Sibling translations are linked by explicit URL grouping in the data file.
+    group_key = mapped_group or f"substack-{source_hash}"
     head = [
         "---",
         "layout: conversa",
         f"title: {quote_yaml(title)}",
         f"date: {date}",
-        "categories: [converses-de-casa]",
-        "tags: [substack]",
+        "categories: [personal]",
+        "tags: [converses-de-casa]",
         f"lang: {language}",
-        f"translation_key: substack-{source_hash}",
+        f"translation_key: {quote_yaml(group_key)}",
         f"permalink: /{'es/' if language == 'es' else 'en/' if language == 'en' else ''}converses-de-casa/{slug}/",
         f"substack_url: {quote_yaml(url)}",
         "author_profile: true",
@@ -135,6 +168,7 @@ def sync(feed_bytes: bytes) -> tuple[int, int]:
         raise ValueError("RSS feed has no entries; refusing to treat an empty feed as a successful sync")
     POSTS.mkdir(exist_ok=True)
     known = existing_imports()
+    groups = translation_groups()
     created = updated = 0
     for entry in feed.entries:
         url = canonical(entry.get("link", ""))
@@ -149,7 +183,7 @@ def sync(feed_bytes: bytes) -> tuple[int, int]:
             path = POSTS / f"{date}-substack-{slug}.md"
             if path.exists():
                 raise FileExistsError(f"Unmanaged path collision: {path}")
-        content = render(entry, url, slug, date)
+        content = render(entry, url, slug, date, groups)
         if not path.exists():
             path.write_text(content, encoding="utf-8")
             created += 1

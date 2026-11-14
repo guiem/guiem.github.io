@@ -4,7 +4,18 @@ permalink: /search-personal.json
 ---
 {%- assign posts = site.posts | where_exp: "post", "post.categories contains 'personal'" -%}
 [
+{%- assign emitted = 0 -%}
 {%- for post in posts -%}
+{%- assign show_post = true -%}
+{%- if post.translation_key and post.tags contains 'converses-de-casa' -%}
+  {%- assign siblings = site.posts | where: 'translation_key', post.translation_key -%}
+  {%- assign originals = siblings | where: 'lang', 'ca' -%}
+  {%- assign chosen = originals | first -%}
+  {%- unless chosen -%}{%- assign chosen = siblings | first -%}{%- endunless -%}
+  {%- if chosen.url != post.url -%}{%- assign show_post = false -%}{%- endif -%}
+{%- endif -%}
+{%- if show_post -%}
+{%- if emitted > 0 -%},{%- endif -%}
   {
     "title": {{ post.title | jsonify }},
     "url": {{ post.url | relative_url | jsonify }},
@@ -18,6 +29,8 @@ permalink: /search-personal.json
       | jsonify }},
     "categories": {{ post.categories | jsonify }},
     "tags": {{ post.tags | jsonify }}
-  }{%- unless forloop.last -%},{%- endunless -%}
+  }
+  {%- assign emitted = emitted | plus: 1 -%}
+{%- endif -%}
 {%- endfor -%}
 ]

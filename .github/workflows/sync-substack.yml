@@ -49,7 +49,7 @@ jobs:
             Automated, **unpublished** import from https://gboschbo.substack.com/feed.
 
             - New and edited public Substack articles are converted to Jekyll Markdown.
-            - Posts are assigned to the `converses-de-casa` category.
+            - Posts are assigned to the `personal` category with the `converses-de-casa` tag, so they appear in the existing personal archive.
             - Language defaults to Catalan unless Substack language tags specify otherwise.
             - Images remain linked to Substack; inspect image rendering and formatting.
             - **Review every file carefully before merging.** This workflow never merges or publishes imported posts.
