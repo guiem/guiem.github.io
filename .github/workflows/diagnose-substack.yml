@@ -1,0 +1,39 @@
+name: Diagnose Substack access
+
+# On-demand diagnostic only: never runs on a schedule or publishes content.
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check Substack and cors.dev response headers
+        shell: bash
+        run: |
+          set -u
+          urls=(
+            'https://gboschbo.substack.com/feed'
+            'https://proxy.cors.dev/https://gboschbo.substack.com/feed'
+          )
+
+          for url in "${urls[@]}"; do
+            echo "::group::Testing ${url}"
+            headers="$(mktemp)"
+            http_status="$(curl --silent --show-error --location --max-time 30 \
+              --dump-header "$headers" --output /dev/null \
+              --write-out '%{http_code}' "$url")"
+            curl_exit=$?
+            echo "curl exit code: ${curl_exit}"
+            echo "Final HTTP status: ${http_status}"
+            echo "Relevant response headers:"
+            grep -iE '^(HTTP/|x-cors-[^:]*:|retry-after:|server:|content-type:|cf-ray:|location:)' "$headers" || true
+            rm -f "$headers"
+            echo "::endgroup::"
+          done
+
+          echo "Diagnostic complete. No content was saved or published."
