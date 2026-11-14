@@ -1,0 +1,57 @@
+name: Propose Substack conversation sync
+
+on:
+  schedule:
+    - cron: '17 6 * * *' # Daily; UTC, GitHub may delay scheduled workflows
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: substack-converses-sync
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+          persist-credentials: false
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Install RSS and HTML conversion dependencies
+        run: python -m pip install "feedparser>=6,<7" "beautifulsoup4>=4,<5" "markdownify>=1,<2"
+
+      - name: Run offline importer tests
+        run: python -m unittest discover -s tests -p 'test_sync_substack.py' -v
+
+      - name: Import Substack posts to Markdown
+        run: python scripts/sync_substack.py
+
+      - name: Open or update the review pull request
+        uses: peter-evans/create-pull-request@v7
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          base: master
+          branch: automation/substack-converses-sync
+          delete-branch: true
+          add-paths: '_posts/*-substack-*.md'
+          commit-message: 'Sync Converses de casa from Substack'
+          title: 'Review: sync Converses de casa posts from Substack'
+          body: |
+            Automated, **unpublished** import from https://gboschbo.substack.com/feed.
+
+            - New and edited public Substack articles are converted to Jekyll Markdown.
+            - Posts are assigned to the `converses-de-casa` category.
+            - Language defaults to Catalan unless Substack language tags specify otherwise.
+            - Images remain linked to Substack; inspect image rendering and formatting.
+            - **Review every file carefully before merging.** This workflow never merges or publishes imported posts.
+
+            Changes to the public website occur only if a human merges this pull request.
