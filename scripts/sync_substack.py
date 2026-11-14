@@ -15,6 +15,7 @@ from pathlib import Path
 import re
 import unicodedata
 from urllib.parse import urlparse
+from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 import feedparser
@@ -22,6 +23,7 @@ from bs4 import BeautifulSoup
 from markdownify import markdownify as to_markdown
 
 FEED_URL = "https://gboschbo.substack.com/feed"
+CORS_PROXY_URL = "https://proxy.cors.dev/" + FEED_URL
 POSTS = Path("_posts")
 TRANSLATIONS_FILE = Path("_data/substack_translations.json")
 
@@ -196,6 +198,53 @@ def sync(feed_bytes: bytes) -> tuple[int, int]:
     return created, updated
 
 
+def validate_fetched_feed(raw: bytes) -> None:
+    """Reject proxy errors, HTML pages and feeds from the wrong publication."""
+    feed = feedparser.parse(raw)
+    if not feed.version or not feed.entries or feed.bozo:
+        raise ValueError("Fetched response is not a valid, nonempty RSS/Atom feed")
+    channel_url = feed.feed.get("link")
+    if channel_url:
+        channel = urlparse(channel_url)
+        if channel.scheme != "https" or channel.netloc.lower() != "gboschbo.substack.com":
+            raise ValueError(f"Unexpected Substack feed owner: {channel_url}")
+    for entry in feed.entries:
+        url = urlparse(entry.get("link", ""))
+        if url.scheme != "https" or url.netloc.lower() != "gboschbo.substack.com" or not url.path.startswith("/p/"):
+            raise ValueError(f"Unexpected post URL in fetched feed: {entry.get('link')}")
+
+
+def fetch_feed() -> bytes:
+    # Prefer a direct request. Only route the public feed through cors.dev if
+    # GitHub's cloud IP is rejected with HTTP 403; do not send credentials.
+    headers = {
+        "User-Agent": (
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+            "AppleWebKit/537.36 (KHTML, like Gecko) "
+            "Chrome/131.0.0.0 Safari/537.36"
+        ),
+        "Accept": "application/rss+xml, application/xml, text/xml, */*;q=0.8",
+        "Accept-Language": "en-US,en;q=0.9",
+        "Cache-Control": "no-cache",
+    }
+    request = Request(FEED_URL, headers=headers)
+    try:
+        with urlopen(request, timeout=30) as response:
+            raw = response.read()
+        print("Fetched Substack RSS directly.")
+    except HTTPError as error:
+        if error.code != 403:
+            raise
+        print("Substack returned HTTP 403; retrying the public RSS feed through cors.dev.")
+        proxy_request = Request(CORS_PROXY_URL, headers=headers)
+        with urlopen(proxy_request, timeout=30) as response:
+            raw = response.read()
+        print("Fetched Substack RSS through cors.dev.")
+
+    validate_fetched_feed(raw)
+    return raw
+
+
 def main() -> None:
     parser = argparse.ArgumentParser()
     parser.add_argument("--feed-file", type=Path, help="Local RSS fixture for testing")
@@ -203,20 +252,7 @@ def main() -> None:
     if args.feed_file:
         raw = args.feed_file.read_bytes()
     else:
-        # Substack sometimes rejects generic Python User-Agent strings with HTTP 403.
-        # Send typical browser navigation headers, without cookies or authentication.
-        req = Request(FEED_URL, headers={
-            "User-Agent": (
-                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
-                "AppleWebKit/537.36 (KHTML, like Gecko) "
-                "Chrome/131.0.0.0 Safari/537.36"
-            ),
-            "Accept": "application/rss+xml, application/xml, text/xml, */*;q=0.8",
-            "Accept-Language": "en-US,en;q=0.9",
-            "Cache-Control": "no-cache",
-        })
-        with urlopen(req, timeout=30) as response:
-            raw = response.read()
+        raw = fetch_feed()
     sync(raw)
 
 
