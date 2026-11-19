@@ -1,6 +1,8 @@
 # Converses de casa — Substack-first publishing
 
-**Substack is the source of truth.** Publish the original story at https://gboschbo.substack.com/ and let a GitHub Action propose corresponding changes to this Jekyll website.
+**Substack is the source of truth.** Publish the original story at https://gboschbo.substack.com/ and let the Mac-local sync propose corresponding changes to this Jekyll website.
+
+> **Preferred setup (November 2026):** The GitHub-hosted RSS-fetch workflow was disabled after repeated HTTP 403/429 errors. For the new daily Mac-local sync, see [Mac-local installation and review-PR workflow](mac-substack-sync.md). The cloud-hosted workflow instructions below are retained for reference only; do not re-enable it alongside the Mac job.
 
 ## Automatic review workflow
 
