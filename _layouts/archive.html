@@ -51,6 +51,7 @@ layout: default
         {% unless preferred_post %}{% assign preferred_post = same_conversation | first %}{% endunless %}
         {% if preferred_post.url != post.url %}{% assign show_post = false %}{% endif %}
       {% endif %}
+      {% if post.substack_url == 'https://gboschbo.substack.com/p/converses-de-casa' %}{% assign show_post = false %}{% endif %}
       {% if show_post %}
       {% capture year %}{{ post.date | date: '%Y' }}{% endcapture %}
       {% if year != written_year %}
