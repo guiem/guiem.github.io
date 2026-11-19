@@ -7,6 +7,8 @@ export PATH="/opt/homebrew/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:${PA
 REPO="guiem/guiem.github.io"
 BASE="master"
 SYNC_BRANCH="automation/substack-converses-mac"
+DRY_RUN=false
+if [[ "${1:-}" == "--dry-run" ]]; then DRY_RUN=true; elif [[ $# -gt 0 ]]; then echo "Usage: $0 [--dry-run]" >&2; exit 2; fi
 ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PYTHON="${ROOT}/.venv-substack/bin/python"
 
@@ -52,6 +54,12 @@ fi
 
 if git diff --quiet "origin/$BASE" HEAD -- _posts; then
   echo "No Substack changes to propose."
+  exit 0
+fi
+
+if [[ "$DRY_RUN" == true ]]; then
+  echo "Dry run: would propose these file changes, without pushing or creating a PR:"
+  git diff --stat "origin/$BASE" HEAD -- _posts
   exit 0
 fi
 
