@@ -1,5 +1,15 @@
 ---
 layout: single
 ---
+{% if page.substack_url %}
+<p class="substack-attribution"><em>
+  {% case page.lang %}
+  {% when 'es' %}Publicado originalmente en
+  {% when 'en' %}Originally published on
+  {% else %}Publicat originalment a
+  {% endcase %}
+  <a href="{{ page.substack_url | escape }}">Substack</a>.
+</em></p>
+{% endif %}
 {% include converses-languages.html %}
 {{ content }}

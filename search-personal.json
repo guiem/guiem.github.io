@@ -14,6 +14,7 @@ permalink: /search-personal.json
   {%- unless chosen -%}{%- assign chosen = siblings | first -%}{%- endunless -%}
   {%- if chosen.url != post.url -%}{%- assign show_post = false -%}{%- endif -%}
 {%- endif -%}
+{%- if post.substack_url == 'https://gboschbo.substack.com/p/converses-de-casa' -%}{%- assign show_post = false -%}{%- endif -%}
 {%- if show_post -%}
 {%- if emitted > 0 -%},{%- endif -%}
   {
