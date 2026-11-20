@@ -14,7 +14,7 @@ After completing a master’s in AI, I began using technology to support people 
 
 Since then, I’ve worked across academia and industry—building systems to predict tourist dynamics, designing tools to explore how science, technology, and society shape one another, and improving online giving. Along the way, I’ve grown increasingly focused on how we can ensure AI benefits society as it becomes more powerful.
 
-These days, my work centers on AI safety & alignment: making sure AI systems behave in ways that are safe, honest, and grounded in human values.
+These days, my curiosity has led me toward AI safety and alignment. After years of building AI systems, I'm increasingly interested in finding their loose screws. Through [OLA Evals](https://www.olaevals.eu/), an independent initiative I recently started, I explore how we can better evaluate AI systems—and the evaluations themselves—to build a more rigorous and trustworthy understanding of AI.
 
 ---
 
